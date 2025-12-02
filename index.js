@@ -110,6 +110,9 @@ app.get('/health', (req, res) => {
   })
 })
 
-app.listen(8001, () => {
-    console.log('server is up on port 8000')
+// To this:
+const PORT = process.env.PORT || 8001
+app.listen(PORT, () => {
+    console.log(`🚀 Server running on port ${PORT}`)
+    console.log('✅ Ready for Railway deployment')
 })
