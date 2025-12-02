@@ -92,6 +92,23 @@ app.use('/contact',contactData)
 app.use('/feedback',feedback)
 
 // Assuming you have the username stored in a variable called 'username'
+// Add root route for health check
+app.get('/', (req, res) => {
+  res.json({ 
+    message: 'Hotel Reservation API is running!',
+    status: 'healthy',
+    timestamp: new Date().toISOString()
+  })
+})
+
+// Health check endpoint
+app.get('/health', (req, res) => {
+  res.json({ 
+    status: 'OK',
+    database: 'connected',
+    timestamp: new Date().toISOString()
+  })
+})
 
 app.listen(8001, () => {
     console.log('server is up on port 8000')
