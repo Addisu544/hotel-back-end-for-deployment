@@ -51,39 +51,25 @@
 
 
 
-// db.js - Fixed for Railway
+// db.js - TEMPORARY external connection
 import mysql from 'mysql2';
 
+// Use EXTERNAL Railway database URL
 const db = mysql.createConnection({
-  // Railway INTERNAL database host
-  host: process.env.MYSQLHOST || process.env.DB_HOST || 'mysql.railway.internal',
-  
-  // Railway auto-injects MYSQLUSER, MYSQLPASSWORD, MYSQLDATABASE
-  user: process.env.MYSQLUSER || process.env.DB_USER || 'root',
-  password: process.env.MYSQLPASSWORD || process.env.DB_PASSWORD || 'UzsVjHxyguNKBeDxDHHURaLpgUQrciAw',
-  database: process.env.MYSQLDATABASE || process.env.DB_NAME || 'railway',
-  
-  // Railway INTERNAL port is 3306
-  port: process.env.MYSQLPORT || process.env.DB_PORT || 3306,
-  
-  // NO SSL for internal Railway connections
-  // ssl: undefined (remove this line entirely)
-  
-  // Connection timeout
-  connectTimeout: 10000
+  host: 'interchange.proxy.rlwy.net', // External hostname
+  user: 'root',
+  password: 'UzsVjHxyguNKBeDxDHHURaLpgUQrciAw',
+  database: 'railway',
+  port: 27045, // External port
+  ssl: { rejectUnauthorized: false }, // SSL required for external
+  connectTimeout: 15000
 });
 
 db.connect((err) => {
   if (err) {
-    console.log('❌ Database connection error:', err.message);
-    console.log('🔧 Config used:', {
-      host: process.env.MYSQLHOST || process.env.DB_HOST || 'mysql.railway.internal',
-      port: process.env.MYSQLPORT || process.env.DB_PORT || 3306,
-      database: process.env.MYSQLDATABASE || process.env.DB_NAME || 'railway',
-      user: process.env.MYSQLUSER || process.env.DB_USER || 'root'
-    });
+    console.log('❌ External DB connection error:', err.message);
   } else {
-    console.log('✅ Database connected to Railway!');
+    console.log('✅ Connected to external Railway database!');
   }
 });
 
