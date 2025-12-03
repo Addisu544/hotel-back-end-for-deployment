@@ -22,9 +22,7 @@
 import mysql from 'mysql2'
 
 const db = mysql.createConnection({
-  // host: process.env.DB_HOST || 'interchange.proxy.rlwy.net',
-  host: process.env.DB_HOST || 'mysql.railway.internal',
-
+  host: process.env.DB_HOST || 'interchange.proxy.rlwy.net',
   user: process.env.DB_USER || 'root',
   password: process.env.DB_PASSWORD || 'UzsVjHxyguNKBeDxDHHURaLpgUQrciAw',
   database: process.env.DB_NAME || 'railway',
@@ -37,6 +35,11 @@ const db = mysql.createConnection({
 db.connect((err) => {
   if (err) {
     console.log('Database connection error:', err.message)
+     console.log('Config used:', {
+      host: process.env.DB_HOST || 'mysql.railway.internal',
+      port: 3306,
+      database: process.env.DB_NAME || 'railway'
+    });
   } else {
     console.log('Database connected to Railway!')
   }
