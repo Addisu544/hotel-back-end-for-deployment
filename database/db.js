@@ -22,11 +22,15 @@
 import mysql from 'mysql2'
 
 const db = mysql.createConnection({
-  host: process.env.DB_HOST || 'interchange.proxy.rlwy.net',
+  // host: process.env.DB_HOST || 'interchange.proxy.rlwy.net',
+  host: process.env.DB_HOST || 'mysql.railway.internal',
+
   user: process.env.DB_USER || 'root',
   password: process.env.DB_PASSWORD || 'UzsVjHxyguNKBeDxDHHURaLpgUQrciAw',
   database: process.env.DB_NAME || 'railway',
-  port: process.env.DB_PORT || 27045,
+  // port: process.env.DB_PORT || 27045,
+  port: process.env.DB_PORT || 3306,
+
   ssl: { rejectUnauthorized: false }
 })
 
