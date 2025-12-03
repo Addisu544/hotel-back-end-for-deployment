@@ -17,27 +17,29 @@ const app=express()
 
 
 
-// app.use(cors({ origin: true,
-//   methods: ['GET,HEAD,PUT,PATCH,POST,DELETE'],
-//   allowedHeaders: 'Content-Type,Authorization',
-//  credentials: true 
+ 
+// app.use(cors({
+//   origin: '*',  // This allows any origin
+//   credentials: false,  // Cannot use credentials with '*'
+//   methods: ['GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS'],
+//   allowedHeaders: ['Content-Type', 'Authorization', 'Content-Length', 'X-Requested-With']
 // }));
 
-// Allow ALL origins - simple fix
+
+//  app.options('*', cors());
+// app.use((req, res, next) => {
+//   res.header('Access-Control-Allow-Origin', req.headers.origin);
+//     res.header('Access-Control-Allow-Credentials', 'true');
+//   next();
+// });
+
+
 app.use(cors({
-  origin: '*',  // This allows any origin
-  credentials: false,  // Cannot use credentials with '*'
-  methods: ['GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'Content-Length', 'X-Requested-With']
+  origin: '*', // Allow all origins
+  credentials: false // Don't require credentials
 }));
 
 
- app.options('*', cors());
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', req.headers.origin);
-    res.header('Access-Control-Allow-Credentials', 'true');
-  next();
-});
 
 app.use(
   session({
